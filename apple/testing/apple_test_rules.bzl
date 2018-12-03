@@ -351,6 +351,10 @@ The xctest bundle that contains the test code and resources. Required.
             default = Label("@build_bazel_rules_apple//tools/realpath"),
             allow_single_file = True,
         ),
+        # The provisioning_profile to codesign .xctest
+        "provisioning_profile": attr.label(
+            allow_single_file = [".mobileprovision", ".provisionprofile"],
+        ),
     }
 
 def _apple_unit_test_attributes():

@@ -175,6 +175,9 @@ def _ios_test(
         target_name_template = "%s_test_binary",
     )
 
+    if "provisioning_profile" in kwargs:
+        bundling_args["provisioning_profile"] = kwargs.get("provisioning_profile")
+        
     _ios_test_bundle(
         name = test_bundle_name,
         bundle_name = name,
