@@ -219,6 +219,11 @@ _COMMON_PRIVATE_TOOL_ATTRS = dicts.add(
             executable = True,
             default = Label("@build_bazel_rules_apple//tools/xctoolrunner"),
         ),
+        "_actoolrunner": attr.label(
+            cfg = "host",
+            executable = True,
+            default = Label("@build_bazel_rules_apple//tools/xctoolrunner/actoolrunner"),
+        ),
         "_imported_dynamic_framework_processor": attr.label(
             cfg = "host",
             executable = True,

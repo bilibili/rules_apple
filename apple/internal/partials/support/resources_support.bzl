@@ -141,6 +141,7 @@ def _asset_catalogs(
         platform_prerequisites,
         product_type,
         rule_label,
+        resource_war_as_err,
         **kwargs):
     """Processes asset catalog files."""
 
@@ -164,16 +165,28 @@ def _asset_catalogs(
         paths.join(parent_dir or "", "xcassets"),
     )
 
-    resource_actions.compile_asset_catalog(
-        actions = actions,
-        asset_files = files.to_list(),
-        bundle_id = bundle_id,
-        output_dir = assets_dir,
-        output_plist = assets_plist,
-        platform_prerequisites = platform_prerequisites,
-        product_type = product_type,
-        xctoolrunner_executable = executables._xctoolrunner,
-    )
+    if resource_war_as_err:
+        resource_actions.compile_asset_catalog(
+            actions = actions,
+            asset_files = files.to_list(),
+            bundle_id = bundle_id,
+            output_dir = assets_dir,
+            output_plist = assets_plist,
+            platform_prerequisites = platform_prerequisites,
+            product_type = product_type,
+            xctoolrunner_executable = executables._actoolrunner,
+        )         
+    else:
+        resource_actions.compile_asset_catalog(
+            actions = actions,
+            asset_files = files.to_list(),
+            bundle_id = bundle_id,
+            output_dir = assets_dir,
+            output_plist = assets_plist,
+            platform_prerequisites = platform_prerequisites,
+            product_type = product_type,
+            xctoolrunner_executable = executables._xctoolrunner,
+        )
 
     return struct(
         files = [(processor.location.resource, parent_dir, depset(direct = [assets_dir]))],

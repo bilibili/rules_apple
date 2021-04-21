@@ -411,6 +411,7 @@ def _resources_partial_impl(
                 "platform_prerequisites": platform_prerequisites,
                 "product_type": rule_descriptor.product_type,
                 "rule_label": rule_label,
+                "resource_war_as_err":"resource_war_as_err" in ctx.features,
             }
 
             # Only pass the Swift module name if the type of resource to process
