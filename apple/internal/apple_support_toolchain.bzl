@@ -87,6 +87,10 @@ def _apple_support_toolchain_impl(ctx):
                 attr_name = "xctoolrunner",
                 rule_ctx = ctx,
             ),
+            resolved_actoolrunner = _resolve_tools_for_executable(
+                attr_name = "actoolrunner",
+                rule_ctx = ctx,
+            ),
             std_redirect_dylib = ctx.file.std_redirect_dylib,
         ),
         DefaultInfo(),
@@ -178,6 +182,11 @@ A `File` referencing a tool that copies and lipos Swift stdlibs required for the
             cfg = "host",
             executable = True,
             doc = "A `File` referencing a tool that acts as a wrapper for xcrun actions.",
+        ),
+        "actoolrunner": attr.label(
+            cfg = "host",
+            executable = True,
+            doc = "A `File` referencing a tool that acts as a wrapper for actool actions.",
         ),
     },
     doc = """Represents an Apple support toolchain""",

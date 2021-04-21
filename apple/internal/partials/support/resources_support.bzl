@@ -141,6 +141,7 @@ def _asset_catalogs(
         platform_prerequisites,
         product_type,
         rule_label,
+        resource_war_as_err,
         **kwargs):
     """Processes asset catalog files."""
 
@@ -189,19 +190,36 @@ def _asset_catalogs(
         else:
             asset_files.append(f)
 
-    resource_actions.compile_asset_catalog(
-        actions = actions,
-        alternate_icons = alternate_icons,
-        asset_files = asset_files,
-        bundle_id = bundle_id,
-        output_dir = assets_dir,
-        output_plist = assets_plist,
-        platform_prerequisites = platform_prerequisites,
-        product_type = product_type,
-        resolved_alticonstool = apple_toolchain_info.resolved_alticonstool,
-        resolved_xctoolrunner = apple_toolchain_info.resolved_xctoolrunner,
-        rule_label = rule_label,
-    )
+
+
+    if resource_war_as_err:
+        resource_actions.compile_asset_catalog(
+            actions = actions,
+            alternate_icons = alternate_icons,
+            asset_files = asset_files,
+            bundle_id = bundle_id,
+            output_dir = assets_dir,
+            output_plist = assets_plist,
+            platform_prerequisites = platform_prerequisites,
+            product_type = product_type,
+            resolved_alticonstool = apple_toolchain_info.resolved_alticonstool,
+            resolved_xctoolrunner = apple_toolchain_info.resolved_actoolrunner,
+            rule_label = rule_label,
+        )
+    else:
+        resource_actions.compile_asset_catalog(
+            actions = actions,
+            alternate_icons = alternate_icons,
+            asset_files = asset_files,
+            bundle_id = bundle_id,
+            output_dir = assets_dir,
+            output_plist = assets_plist,
+            platform_prerequisites = platform_prerequisites,
+            product_type = product_type,
+            resolved_alticonstool = apple_toolchain_info.resolved_alticonstool,
+            resolved_xctoolrunner = apple_toolchain_info.resolved_xctoolrunner,
+            rule_label = rule_label,
+        )
 
     return struct(
         files = [(processor.location.resource, parent_dir, depset(direct = [assets_dir] + alternate_icons))],

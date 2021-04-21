@@ -239,6 +239,7 @@ def _ios_application_impl(ctx):
             rule_label = label,
             targets_to_avoid = ctx.attr.frameworks,
             top_level_attrs = top_level_attrs,
+            resource_war_as_err = "resource_war_as_err" in ctx.features,
         ),
         partials.settings_bundle_partial(
             actions = actions,
@@ -482,6 +483,7 @@ def _ios_app_clip_impl(ctx):
             rule_label = label,
             targets_to_avoid = ctx.attr.frameworks,
             top_level_attrs = top_level_attrs,
+            resource_war_as_err = "resource_war_as_err" in ctx.features,
         ),
         partials.swift_dylibs_partial(
             actions = actions,
@@ -706,6 +708,7 @@ def _ios_framework_impl(ctx):
             targets_to_avoid = ctx.attr.frameworks,
             top_level_attrs = ["resources"],
             version_keys_required = False,
+            resource_war_as_err = "resource_war_as_err" in ctx.features,
         ),
         partials.swift_dylibs_partial(
             actions = actions,
@@ -877,6 +880,7 @@ def _ios_extension_impl(ctx):
             rule_label = label,
             targets_to_avoid = ctx.attr.frameworks,
             top_level_attrs = top_level_attrs,
+            resource_war_as_err = "resource_war_as_err" in ctx.features,
         ),
         partials.swift_dylibs_partial(
             actions = actions,
@@ -1077,6 +1081,7 @@ def _ios_dynamic_framework_impl(ctx):
             targets_to_avoid = ctx.attr.frameworks,
             top_level_attrs = ["resources"],
             version_keys_required = False,
+            resource_war_as_err = "resource_war_as_err" in ctx.features,
         ),
         partials.swift_dylibs_partial(
             actions = actions,
@@ -1212,6 +1217,8 @@ def _ios_static_framework_impl(ctx):
             rule_attrs = ctx.attr,
             rule_descriptor = rule_descriptor,
             rule_label = label,
+            resource_war_as_err = "resource_war_as_err" in ctx.features,
+
         ))
 
     processor_result = processor.process(
@@ -1331,6 +1338,8 @@ def _ios_imessage_application_impl(ctx):
             rule_descriptor = rule_descriptor,
             rule_label = label,
             top_level_attrs = top_level_attrs,
+            resource_war_as_err = "resource_war_as_err" in ctx.features,
+
         ),
         partials.swift_dylibs_partial(
             actions = actions,
@@ -1502,7 +1511,8 @@ def _ios_imessage_extension_impl(ctx):
             rule_descriptor = rule_descriptor,
             rule_label = label,
             targets_to_avoid = ctx.attr.frameworks,
-            top_level_attrs = top_level_attrs,
+            top_level_attrs = top_level_attrs,         
+            resource_war_as_err = "resource_war_as_err" in ctx.features,
         ),
         partials.swift_dylibs_partial(
             actions = actions,
@@ -1641,6 +1651,7 @@ def _ios_sticker_pack_extension_impl(ctx):
             rule_descriptor = rule_descriptor,
             rule_label = label,
             top_level_attrs = top_level_attrs,
+            resource_war_as_err = "resource_war_as_err" in ctx.features,
         ),
         partials.messages_stub_partial(
             actions = actions,

@@ -31,6 +31,7 @@ apple_support_toolchain(
     # not used by other things.
     visibility = ["//visibility:public"],
     xctoolrunner = "//tools/xctoolrunner",
+    actoolrunner = "//tools/xctoolrunner/actoolrunner",
 )
 
 bzl_library(
